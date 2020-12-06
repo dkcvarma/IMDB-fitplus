@@ -1,0 +1,37 @@
+import { UPDATE_SEARCH_RESULTS, UPDATE_LOAD_MORE, UPDATE_LOADER, UPDATE_DETAILS } from '../actions/types';
+
+const initialState = {
+  results: [],
+  showLoadMore: false,
+  showLoader: false,
+  details: {},
+};
+
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case UPDATE_SEARCH_RESULTS: {
+      const results = action.setEmpty ? [] : [...state.results, ...action.searchResults];
+      return { ...state, results };
+    }
+    case UPDATE_LOAD_MORE: {
+      return {
+        ...state,
+        showLoadMore: action.condition
+      }
+    }
+    case UPDATE_LOADER: {
+      return {
+        ...state,
+        showLoader: action.condition
+      }
+    }
+    case UPDATE_DETAILS: {
+      return {
+        ...state,
+        details: action.details
+      }
+    }
+    default:
+      return state;
+  }
+}
